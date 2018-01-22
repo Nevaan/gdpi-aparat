@@ -101,11 +101,9 @@ $(document).ready(function () {
     });
 
     $('#camera-buffer').mousemove(function (evt) {
-
         var pos = getMousePos(canvas, evt.pageX, evt.pageY);
 
         if(cameraBufferMouseDown) {
-
             mouseUpX = pos.x;
             mouseUpY = pos.y;
             adjustBufferView();
