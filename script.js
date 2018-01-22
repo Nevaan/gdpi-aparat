@@ -20,8 +20,6 @@ var blurValue;
 var camWinX;
 var camWinY;
 
-var savedScreenshots = []
-
 $(document).ready(function () {
 
     blurValue = $("#blurVal").val();
@@ -95,14 +93,8 @@ $(document).ready(function () {
         cameraBufferMouseDown = true;
     });
 
-    $('#camera-buffer').click(function () {
-        savedScreenshots.push(canvas2.toDataURL('png'));
-        $("#tutej").attr('src', savedScreenshots[0]);
-    });
-
     $('#camera-buffer').mousemove(function (evt) {
         var pos = getMousePos(canvas, evt.pageX, evt.pageY);
-
         if(cameraBufferMouseDown) {
             mouseUpX = pos.x;
             mouseUpY = pos.y;
@@ -113,6 +105,10 @@ $(document).ready(function () {
     $('#camera-buffer').on('mouseup',function () {
         cameraBufferMouseDown=false;
     });
+
+    $('#camera-buffer').click(function () {
+            createThumbnail(canvas2.toDataURL('png'));
+    };
 
     $(window).on('mouseup', function (e) {
 
@@ -179,4 +175,16 @@ function adjustBufferView() {
     }
 
     $('#camera-buffer').css("transform", "translate(" + translateBufferXVal + "px, " + translateBufferYVal + "px)");
+}
+
+
+function createThumbnail(content) {
+    var div = document.createElement("div");
+    var img = document.createElement("img");
+    img.className = "photo";
+    img.src = content;
+    /*img.attr("class", "photo");
+    img.attr("src", content);*/
+    div.appendChild(img);
+    $(".container-area")[0].appendChild(div);
 }

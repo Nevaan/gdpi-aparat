@@ -13,42 +13,48 @@
 
     <h1 style="text-align: center;"> Camera app </h1>
 </div>
+<div style="height:650px; position: relative;">
+<div  style="float: left; width: 70%; height: 100%;">
+    <div class="camera-container">
 
-<div class="camera-container">
+        <canvas id="camera" class="camera" width="800" height="600">
 
-    <canvas id="camera" class="camera" width="800" height="600">
+        </canvas>
+        <canvas id="camera-buffer" class="buffer" width="300" height="200">
 
-    </canvas>
-    <canvas id="camera-buffer" class="buffer" width="300" height="200">
+        </canvas>
 
-    </canvas>
-
-</div>
-<div style="margin: 0 auto; height: 50px; width: 100%; text-align: center;">
-    <div style="display: inline-block">
-        <label for="blurVal">Blur value</label>
-        <input id="blurVal" type="range" min="0" max="20" step="1" value="15">
     </div>
-    <div style="display: inline-block">
-        <label for="bufferX">Buffer width</label>
-        <input id="bufferX" type="range" min="0" max="800" step="1" value="300">
-    </div>
-    <div style="display: inline-block">
-        <label for="bufferY">Buffer height</label>
-        <input id="bufferY" type="range" min="0" max="600" step="1" value="200">
-    </div>
-</div>
-
-<div class="screenshots">
-    <h2 style="text-align: center">Screenshots taken</h2>
-    <div class="screenshots-container">
-        <div class="container-area">
-            <div>
-                <img src="/Users/pawel/Desktop/Zrzut ekranu 2018-01-09 o 22.15.04.png" class="photo">
-            </div>
+    <div style="margin: 0 auto; height: 50px; width: 100%; text-align: center;">
+        <div style="display: inline-block">
+            <label for="blurVal">Blur value</label>
+            <input id="blurVal" type="range" min="0" max="20" step="1" value="15">
+        </div>
+        <div style="display: inline-block">
+            <label for="bufferX">Buffer width</label>
+            <input id="bufferX" type="range" min="0" max="800" step="1" value="300">
+        </div>
+        <div style="display: inline-block">
+            <label for="bufferY">Buffer height</label>
+            <input id="bufferY" type="range" min="0" max="600" step="1" value="200">
         </div>
     </div>
 </div>
+<div style="float: left; width: 30%; height: 100%;">
+    <div class="screenshots">
+        <h2 style="text-align: center; margin: 0; height: 50px;">Screenshots taken</h2>
+        <div class="screenshots-container">
+            <div class="container-area">
+                <!--<div>
+                    <img src="/Users/pawel/Desktop/Zrzut ekranu 2018-01-09 o 22.15.04.png" class="photo">
+                </div>-->
+            </div>
+        </div>
+    </div>
+    <div style="height: 50px;"></div>
+</div>
+</div>
+
 
 </body>
 </html>
