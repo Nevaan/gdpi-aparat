@@ -10,7 +10,6 @@ var context, context2;
 var cameraMouseDown = false;
 var cameraBufferMouseDown = false;
 var cameraMouseDownX, cameraMouseDownY;
-var cameraBufferMouseDownX, cameraBufferMouseDownY;
 
 var translateBufferXVal = 0;
 var translateBufferYVal = 0;
@@ -20,11 +19,10 @@ var mouseUpY;
 var blurValue;
 var camWinX;
 var camWinY;
-var reader = new FileReader();
 
 var savedScreenshots = []
 
-$(document).ready(function (e) {
+$(document).ready(function () {
 
     blurValue = $("#blurVal").val();
     camWinX = $("#bufferX").val();
@@ -37,19 +35,19 @@ $(document).ready(function (e) {
     context = canvas.getContext("2d");
     context2 = canvas2.getContext("2d");
 
-    $("#blurVal").on('input', function (event) {
+    $("#blurVal").on('input', function () {
         blurValue = $(this).val();
         drawBackground();
     })
-    $("#bufferX").on('input', function (event) {
+    $("#bufferX").on('input', function () {
         camWinX = $(this).val();
-        $("#camera-buffer").attr("width",camWinX);
+        $("#camera-buffer").attr("width", camWinX);
         adjustBufferView();
         drawForeground();
     })
-    $("#bufferY").on('input', function (event) {
+    $("#bufferY").on('input', function (ś) {
         camWinY = $(this).val();
-        $("#camera-buffer").attr("height",camWinY);
+        $("#camera-buffer").attr("height", camWinY);
         adjustBufferView();
         drawForeground();
     })
@@ -93,11 +91,11 @@ $(document).ready(function (e) {
         }
     })
 
-    $('#camera-buffer').on('mousedown', function (evt) {
+    $('#camera-buffer').on('mousedown', function () {
         cameraBufferMouseDown = true;
     });
 
-    $('#camera-buffer').click(function() {
+    $('#camera-buffer').click(function () {
         savedScreenshots.push(canvas2.toDataURL('png'));
         $("#tutej").attr('src', savedScreenshots[0]);
     });
@@ -106,16 +104,16 @@ $(document).ready(function (e) {
 
         var pos = getMousePos(canvas, evt.pageX, evt.pageY);
 
-        if (cameraBufferMouseDown) {
+        if(cameraBufferMouseDown) {
 
-
-            if(canvas2.width - Math.abs( pos.x - translateBufferXVal) < 15 ) {
-                console.log("ok " + $(this).width());
-                $(this).width();
-                drawForeground();
-            }
-
+            mouseUpX = pos.x;
+            mouseUpY = pos.y;
+            adjustBufferView();
+            drawForeground();
         }
+    });
+    $('#camera-buffer').on('mouseup',function () {
+        cameraBufferMouseDown=false;
     });
 
     $(window).on('mouseup', function (e) {
@@ -138,7 +136,7 @@ $(document).ready(function (e) {
 function drawBackground() {
     context.clearRect(0, 0, canvas.width, canvas.height);
     context.filter = 'blur(' + blurValue + 'px)';
-        context.drawImage(currentPhoto, 0, 0, canvas.width, canvas.height);
+    context.drawImage(currentPhoto, 0, 0, canvas.width, canvas.height);
     context.filter = 'blur(0px)';
 }
 
@@ -147,7 +145,7 @@ function drawForeground() {
     context2.beginPath();
     context2.lineWidth = "6";
     context2.strokeStyle = "green";
-    context2.drawImage(currentPhoto, (-mouseUpX + (camWinX/2)), (-mouseUpY + (camWinY/2)), canvas.width, canvas.height);
+    context2.drawImage(currentPhoto, (-mouseUpX + (camWinX / 2)), (-mouseUpY + (camWinY / 2)), canvas.width, canvas.height);
     context2.rect(0, 0, camWinX, camWinY);
     context2.stroke();
 }
