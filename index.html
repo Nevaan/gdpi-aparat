@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Camera app</title>
+    <link rel="stylesheet" href="style.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script rel="script" src="script.js"></script>
+</head>
+<body>
+
+<div class="header">
+
+<h1 style="text-align: center;"> Camera app </h1>
+</div>
+
+<div class="camera-container">
+
+    <canvas id="camera" class="camera" width="800" height="600">
+
+    </canvas>
+    <canvas id="camera-buffer" class="buffer" width="300" height="200">
+
+    </canvas>
+
+</div>
+<div style="margin: 0 auto; height: 50px; width: 100%; text-align: center;">
+    <div style="display: inline-block">
+        <label for="blurVal">Blur value</label>
+        <input id="blurVal" type="range" min="0" max="20" step="1" value="15">
+    </div>
+    <div style="display: inline-block">
+        <label for="bufferX">Buffer width</label>
+        <input id="bufferX" type="range" min="0" max="800" step="1" value="300">
+    </div>
+    <div style="display: inline-block">
+        <label for="bufferY">Buffer height</label>
+        <input id="bufferY" type="range" min="0" max="600" step="1"  value="200">
+    </div>
+</div>
+
+<div class="screenshots">
+    <h2 style="text-align: center">Screenshots taken</h2>
+    <div class="screenshots-container">
+        <div class="container-area"></div>
+    </div>
+</div>
+
+<img id="tutej" style="width: 200px" height="200px;" src="">
+
+</body>
+</html>

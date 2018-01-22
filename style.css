@@ -1,0 +1,69 @@
+body {
+    background-color: goldenrod;
+}
+
+.header {
+    height: 50px;
+    margin: 0 auto;
+}
+
+.upload-container {
+    height: 300px;
+    margin: 0 auto;
+}
+
+.file-dropper {
+    height: 200px;
+    width: 200px;
+    margin: 0 auto;
+    background-color: blueviolet;
+}
+
+.file-dropper.hover {
+    background-color: blue;
+}
+
+.camera-container {
+    margin: 0 auto;
+    background-color: black;
+    width: 800px;
+    height: 600px;
+    position: relative;
+}
+
+.camera {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.buffer {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 2;
+}
+
+#filedrag.hover
+{
+    color: #f00;
+    border-color: #f00;
+    border-style: solid;
+    box-shadow: inset 0 3px 4px #888;
+}
+
+.screenshots {
+    height: 400px;
+}
+
+.screenshots-container {
+    height: 350px;
+    padding: 0 20px 20px 20px;
+}
+
+.container-area {
+    width: 100%;
+    height: 100%;
+    background-color: #c2c2c2;
+}
