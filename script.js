@@ -1,14 +1,10 @@
-/**
- * Created by pawel on 25.12.2017.
- */
-
-var files;
-var currentPhoto;
+var files, currentPhoto;
 
 var canvas, canvas2;
 var context, context2;
 var cameraMouseDown = false;
 var cameraBufferMouseDown = false;
+var bufferMouseMoving = false;
 var translateBufferXVal = 0;
 var translateBufferYVal = 0;
 
@@ -17,8 +13,6 @@ var blurValue;
 
 var photoIds = 0;
 var thumbnailDragSource;
-
-var bufferMouseMoving = false;
 
 $(document).ready(function () {
 
@@ -143,7 +137,7 @@ function drawForeground() {
     context2.clearRect(0, 0, canvas.width, canvas.height);
     context2.beginPath();
     context2.lineWidth = "6";
-    context2.strokeStyle = "green";
+    context2.strokeStyle = "white";
     context2.drawImage(currentPhoto, (-mouseUpX + (camWinX / 2)), (-mouseUpY + (camWinY / 2)), canvas.width, canvas.height);
     context2.rect(0, 0, camWinX, camWinY);
     context2.stroke();
@@ -242,6 +236,9 @@ function createThumbnail(content) {
 
     $(".container-area")[0].appendChild(div);
     $(".container-area")[0].appendChild(separators.upSep);
+    $(".container-area").animate({
+        scrollTop: $(".container-area")[0].scrollHeight
+    }, 1000, function() {});
 }
 
 
