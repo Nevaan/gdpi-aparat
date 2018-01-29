@@ -9,16 +9,16 @@ var canvas, canvas2;
 var context, context2;
 var cameraMouseDown = false;
 var cameraBufferMouseDown = false;
-var cameraMouseDownX, cameraMouseDownY;
-
 var translateBufferXVal = 0;
 var translateBufferYVal = 0;
 
-var mouseUpX;
-var mouseUpY;
+var cameraMouseDownX, cameraMouseDownY, mouseUpX, mouseUpY, camWinX, camWinY;
 var blurValue;
-var camWinX;
-var camWinY;
+
+var photoIds = 0;
+var thumbnailDragSource;
+
+var bufferMouseMoving = false;
 
 $(document).ready(function () {
 
@@ -68,7 +68,7 @@ $(document).ready(function () {
     $("#camera").on("dragover", function (event) {
         event.preventDefault();
         event.stopPropagation();
-        $(this).css("background-color", "green");
+        $(this).css("background-color", "gray");
         return false;
     });
 
@@ -95,20 +95,24 @@ $(document).ready(function () {
 
     $('#camera-buffer').mousemove(function (evt) {
         var pos = getMousePos(canvas, evt.pageX, evt.pageY);
-        if(cameraBufferMouseDown) {
+        if (cameraBufferMouseDown) {
             mouseUpX = pos.x;
             mouseUpY = pos.y;
             adjustBufferView();
             drawForeground();
+            bufferMouseMoving = true;
         }
     });
-    $('#camera-buffer').on('mouseup',function () {
-        cameraBufferMouseDown=false;
+    $('#camera-buffer').on('mouseup', function () {
+        cameraBufferMouseDown = false;
     });
 
     $('#camera-buffer').click(function () {
+        if (!bufferMouseMoving) {
             createThumbnail(canvas2.toDataURL('png'));
-    };
+        }
+        bufferMouseMoving = false;
+    });
 
     $(window).on('mouseup', function (e) {
 
@@ -125,6 +129,7 @@ $(document).ready(function () {
 
         }
     });
+
 })
 
 function drawBackground() {
@@ -177,14 +182,77 @@ function adjustBufferView() {
     $('#camera-buffer').css("transform", "translate(" + translateBufferXVal + "px, " + translateBufferYVal + "px)");
 }
 
+function thumbnailDragStart(evt) {
+    thumbnailDragSource = evt.currentTarget;
+    evt.dataTransfer.setData("text", evt.currentTarget.id);
+    evt.dataTransfer.effectAllowed = "move";
+    evt.target.style.opacity = "0.4";
+}
+
+function thumbnailDragOver(evt) {
+    evt.preventDefault();
+}
+
+function thumbnailDragDrop(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    var separators = separatorFactory();
+
+    if (evt.target.nextElementSibling && !(thumbnailDragSource.id == evt.target.nextElementSibling.id)) {
+        thumbnailDragSource.previousSibling.remove();
+        evt.target.parentNode.insertBefore(separators.upSep, evt.target);
+        evt.target.parentNode.insertBefore(thumbnailDragSource, evt.target);
+    } else if (!evt.target.nextElementSibling && evt.target.previousElementSibling && !(thumbnailDragSource.id == evt.target.previousElementSibling.id)) {
+        thumbnailDragSource.previousSibling.remove();
+        evt.target.parentNode.insertBefore(separators.upSep, evt.target);
+        evt.target.parentNode.insertBefore(thumbnailDragSource, evt.target);
+    }
+
+    $(evt.target).toggleClass("dragHover", false);
+}
+
+function thumbnailDragEnd(evt) {
+    evt.target.style.opacity = "1";
+}
+
+function dividerUpDragOver(e) {
+    e.preventDefault();
+    $(e.target).toggleClass("dragHover", true);
+    e.dataTransfer.dropEffect = "move";
+}
+function dividerUpDragLeave(e) {
+    $(e.target).toggleClass("dragHover", false);
+    e.dataTransfer.dropEffect = "none";
+}
 
 function createThumbnail(content) {
     var div = document.createElement("div");
     var img = document.createElement("img");
     img.className = "photo";
     img.src = content;
-    /*img.attr("class", "photo");
-    img.attr("src", content);*/
+    div.id = "photoThumb" + photoIds;
+    div.setAttribute("draggable", "true");
+    photoIds++;
+    div.setAttribute("ondragstart", "thumbnailDragStart(event)");
+    div.setAttribute("ondragover", "thumbnailDragOver(event)");
+    div.setAttribute("ondragend", "thumbnailDragEnd(event)");
     div.appendChild(img);
+
+    var separators = separatorFactory();
+
     $(".container-area")[0].appendChild(div);
+    $(".container-area")[0].appendChild(separators.upSep);
+}
+
+
+function separatorFactory() {
+    var separatorDivUp = document.createElement("div");
+    separatorDivUp.className = "photo-divider-up";
+    separatorDivUp.setAttribute("ondragover", "dividerUpDragOver(event)");
+    separatorDivUp.setAttribute("ondragleave", "dividerUpDragLeave(event)");
+    separatorDivUp.setAttribute("ondrop", "thumbnailDragDrop(event)");
+
+    return {
+        upSep: separatorDivUp
+    };
 }

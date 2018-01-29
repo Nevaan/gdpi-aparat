@@ -1,26 +1,12 @@
 body {
-    background-color: goldenrod;
+    background-image: url(photos/Galaxy-2048x1152.jpg);
+    background-size: 100%;
+    color: #ffab4d;
 }
 
 .header {
     height: 50px;
     margin: 0 auto;
-}
-
-.upload-container {
-    height: 300px;
-    margin: 0 auto;
-}
-
-.file-dropper {
-    height: 200px;
-    width: 200px;
-    margin: 0 auto;
-    background-color: blueviolet;
-}
-
-.file-dropper.hover {
-    background-color: blue;
 }
 
 .camera-container {
@@ -45,14 +31,6 @@ body {
     z-index: 2;
 }
 
-#filedrag.hover
-{
-    color: #f00;
-    border-color: #f00;
-    border-style: solid;
-    box-shadow: inset 0 3px 4px #888;
-}
-
 .screenshots {
     height: 600px;
 }
@@ -63,6 +41,7 @@ body {
     margin: auto;
     padding: 30px;
     height: 490px;
+    background-color: rgba(0,0,0,1);
 }
 
 .container-area {
@@ -70,22 +49,78 @@ body {
     background-color: #c2c2c2;
     overflow-y: auto;
     text-align: center;
+    background-color: inherit;
 }
 
-.container-area div {
+.container-area .photo {
     display: inline-block;
     max-width: 200px;
     max-height: 200px;
-    margin-right: 15px;
     vertical-align: top;
-    padding-bottom: 15px;
-}
-
-.container-area div:last-of-type {
-    padding-bottom: 0px;
 }
 
 .photo {
     max-width: 200px;
     max-height: 200px;
+}
+
+.photo-divider-up {
+    margin: 0 auto;
+    width: 200px;
+    height: 15px;
+    position: relative;
+    transition: background-color 0.3s ease-in;
+}
+
+.photo-divider-up.dragHover {
+    background-color: white;
+    opacity: 0.3;
+}
+
+[draggable] {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.app-container {
+    height: 650px;
+    position: relative;
+}
+
+.control-panel {
+    margin: 0 auto;
+    height: 30px;
+    width: 800px;
+    text-align: center;
+    background-color: rgba(0,0,0, 0.8);
+    border-top: white 1px solid;
+    color: white;
+}
+
+.screenshots-header {
+    text-align: center;
+    margin: 0;
+    height: 50px;
+}
+
+.second-column {
+    float: left;
+    width: 30%;
+    height: 100%;
+}
+
+.first-column {
+    float: left;
+    width: 70%;
+    height: 100%;
+}
+
+.h1-app-header {
+    text-align: center;
+}
+
+#camera {
+    transition: background-color 0.3s ease-in;
 }

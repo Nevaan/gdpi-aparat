@@ -10,11 +10,10 @@
 <body>
 
 <div class="header">
-
-    <h1 style="text-align: center;"> Camera app </h1>
+    <h1 class="h1-app-header"> Camera app </h1>
 </div>
-<div style="height:650px; position: relative;">
-<div  style="float: left; width: 70%; height: 100%;">
+<div class="app-container">
+<div  class="first-column">
     <div class="camera-container">
 
         <canvas id="camera" class="camera" width="800" height="600">
@@ -25,7 +24,7 @@
         </canvas>
 
     </div>
-    <div style="margin: 0 auto; height: 50px; width: 100%; text-align: center;">
+    <div class="control-panel">
         <div style="display: inline-block">
             <label for="blurVal">Blur value</label>
             <input id="blurVal" type="range" min="0" max="20" step="1" value="15">
@@ -40,14 +39,13 @@
         </div>
     </div>
 </div>
-<div style="float: left; width: 30%; height: 100%;">
+<div class="second-column">
     <div class="screenshots">
-        <h2 style="text-align: center; margin: 0; height: 50px;">Screenshots taken</h2>
+        <h2 class="screenshots-header">Screenshots taken</h2>
         <div class="screenshots-container">
             <div class="container-area">
-                <!--<div>
-                    <img src="/Users/pawel/Desktop/Zrzut ekranu 2018-01-09 o 22.15.04.png" class="photo">
-                </div>-->
+                <div class="photo-divider-up" ondragover="dividerUpDragOver(event)"
+                ondragleave="dividerUpDragLeave(event)" ondrop="thumbnailDragDrop(event)"></div>
             </div>
         </div>
     </div>
