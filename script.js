@@ -124,6 +124,11 @@ $(document).ready(function () {
         }
     });
 
+    $('#downloadButton').click(function() {
+        $('div[id^="photoThumb"]').each(function(e,v) {
+            v.children[1].click()
+        })
+    })
 })
 
 function drawBackground() {
@@ -226,11 +231,17 @@ function createThumbnail(content) {
     img.src = content;
     div.id = "photoThumb" + photoIds;
     div.setAttribute("draggable", "true");
+       var a = document.createElement("a");
+    a.download = "photoThumb" + photoIds + "_" + Date.now();
+    a.href = content;
+    a.title = "Download "+ "photoThumb" + photoIds;
+
     photoIds++;
     div.setAttribute("ondragstart", "thumbnailDragStart(event)");
     div.setAttribute("ondragover", "thumbnailDragOver(event)");
     div.setAttribute("ondragend", "thumbnailDragEnd(event)");
     div.appendChild(img);
+    div.appendChild(a);
 
     var separators = separatorFactory();
 
